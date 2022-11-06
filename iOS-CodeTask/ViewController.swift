@@ -7,9 +7,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var tableView: UITableView?
 
     var data = [Any]()
-//From the Architecture of the code it can be understood that the viewcontroller loads a UITableView and then dynamically populates the cell with Match type data and then followed by
-// NewsFeedItem type data in the next cells. Another option can be to show the match details in table header and then have the news feed in the cells under that header
-// for that particular match.
+//From the Architecture of the code it can be understood that the viewcontroller loads a UITableView and then dynamically populates the cell for a Match type data
+//and then followed by NewsFeedItem type data in the next cells further followed by next matches. Another option can be to show the match details in table header  
+//and then have the news feed in the cells under that header for that particular match. In that case we can create a class for Match and a property of Match class 
+//can be an array containing NewsFeedItem class type, representing news feed for the particular match. In the loadData() method below. we can iterate through the   
+//matches and for each match object we can store the newsFeed items. In this way the code will be more organised and tightly coupled.
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView = UITableView(frame:self.view.frame)
@@ -35,7 +37,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     newData.append(newsFeedItem)
                 }
 
-                data = newData // variable data  is not declared
+                data = newData // variable data  is not declared. This will give a compilation error
                 self.tableView?.reloadData()
             }
         }
@@ -76,7 +78,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1 // If we choose to displa the match details in the header then we need to have multiple headers here
+        return 1 // If we choose to display the match details in the header then we need to have multiple headers here
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
